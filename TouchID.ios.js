@@ -25,7 +25,7 @@ export default {
     });
   },
 
-  authenticate(reason, displayFallback = true) {
+  authenticate(reason, displayFallback = false) {
     var authReason;
 
     // Set auth reason
