@@ -2,11 +2,11 @@
  * @providesModule TouchID
  * @flow
  */
-'use strict';
+"use strict";
 
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 const NativeTouchID = NativeModules.TouchID;
-const ERRORS = require('./data/errors');
+const ERRORS = require("./data/errors");
 
 /**
  * High-level docs for the TouchID iOS API can be written here.
@@ -25,19 +25,19 @@ export default {
     });
   },
 
-  authenticate(reason) {
+  authenticate(reason, displayFallback = true) {
     var authReason;
 
     // Set auth reason
     if (reason) {
       authReason = reason;
-    // Set as empty string if no reason is passed
+      // Set as empty string if no reason is passed
     } else {
-      authReason = ' ';
+      authReason = " ";
     }
 
     return new Promise((resolve, reject) => {
-      NativeTouchID.authenticate(authReason, error => {
+      NativeTouchID.authenticate(authReason, displayFallback, error => {
         // Return error if rejected
         if (error) {
           return reject(createError(error.message));
@@ -50,8 +50,8 @@ export default {
 };
 
 function TouchIDError(name, details) {
-  this.name = name || 'TouchIDError';
-  this.message = details.message || 'Touch ID Error';
+  this.name = name || "TouchIDError";
+  this.message = details.message || "Touch ID Error";
   this.details = details || {};
 }
 
